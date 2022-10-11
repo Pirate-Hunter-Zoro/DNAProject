@@ -17,6 +17,7 @@
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Solver {
 
@@ -30,29 +31,24 @@ public class Solver {
         // to be filled up after we have the 2D back-tracking array
         ArrayList<Pair> pairs = new ArrayList<>();
 
+        // to track the recorded column positions with characters matching on a given row position
+        HashMap<Integer,Integer> sharedCharacters = new HashMap<>();
+
         // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
         int[][] backTracker = LCS(s1, s2);
 
         // now progress in order from start to finish to reconstruct the longest common subsequence
-        int i=1, j=1;
-        int lastJ = j;
-        while (i < backTracker.length){
-            while (j < backTracker[i].length) {
-                if (backTracker[i][j] == 2) {
-                    pairs.add(new Pair(i - 1, j - 1));
-                    i++;
-                    lastJ = j;
-                    j++;
-                    break;
-                } else {
-                    j++;
-                    if (j == backTracker[i].length) {
-                        i++;
-                        j = lastJ+1;
-                    }
+        for (int i=backTracker.length-1; i>0; i--){
+            for (int j=backTracker[i].length-1; j>0; j--){
+                if (backTracker[i][j] == 2){
+                    sharedCharacters.put(i-1, j-1);
                 }
             }
         }
+
+        // using the Map, create the pairs
+        for (int row : sharedCharacters.keySet())
+            pairs.add(new Pair(row, sharedCharacters.get(row)));
 
         return pairs;
     }
