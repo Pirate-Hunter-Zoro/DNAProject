@@ -15,6 +15,8 @@
  *
  * *****************************************/
 
+import java.util.Objects;
+
 public class Pair {
 
     /** First and second coordinates */
@@ -39,5 +41,33 @@ public class Pair {
     /** Simple getter for the second element of a Pair */
     public int getSecond() {
         return second;
+    }
+
+    /**
+     * Method for determining if two Pair objects are equal
+     * @param obj {@link Object}
+     * @return {@link boolean}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        // null?
+        if (obj == null)
+            return false;
+        // not a Pair?
+        else if (!(obj instanceof Pair))
+            return false;
+
+        // cast obj to a Pair and compare
+        Pair other = (Pair)obj;
+        return other.first == this.first && other.second == this.second;
+    }
+
+    /**
+     * Method for generating a hash code for a Pair instance
+     * @return {@link int}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.first, this.second);
     }
 }

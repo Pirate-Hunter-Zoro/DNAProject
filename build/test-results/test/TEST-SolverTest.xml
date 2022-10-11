@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SolverTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-11T00:57:37" hostname="MacBook-Air-2.local" time="0.012">
+  <properties/>
+  <testcase name="findSubsequencePositions()" classname="SolverTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

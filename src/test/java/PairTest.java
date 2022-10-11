@@ -25,4 +25,19 @@ class PairTest {
     void getSecond() {
         assertEquals(2, testPair.getSecond());
     }
+
+    /** A simple tests to ensure two Pair objects are compared correctly */
+    @Test
+    void equals() {
+        assertEquals(new Pair(1,2), testPair);
+        assertNotEquals(new Pair(1,-2), testPair);
+    }
+
+    /** A simple test to ensure that two Pair objects' hashCodes compare as expected */
+    @Test
+    void hash() {
+        assertEquals((new Pair(1,2)).hashCode(), testPair.hashCode());
+        assertNotEquals((new Pair(1,-2)).hashCode(), testPair.hashCode());
+    }
+
 }
