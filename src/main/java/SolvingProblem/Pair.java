@@ -1,4 +1,4 @@
-/* *****************************************
+package SolvingProblem;/* *****************************************
  * CSCI311 - Design and Analysis of Algorithms
  * Fall2022
  * Instructor: Prof. Edward Talmage
@@ -9,7 +9,7 @@
  *
  * Project: DNAProject
  * Package: SequenceAligner
- * Class: Pair
+ * Class: SolvingProblem.Pair
  *
  * Description: Stores a pair of integers which corresponds to the index of one String, and the index of another
  *
@@ -24,7 +24,7 @@ public class Pair {
     private int second;
 
     /**
-     * Constructor for a Pair
+     * Constructor for a SolvingProblem.Pair
      * @param first {@link int}
      * @param second {@link int}
      */
@@ -33,18 +33,18 @@ public class Pair {
         this.second = second;
     }
 
-    /** Simple getter for the first element of a Pair */
+    /** Simple getter for the first element of a SolvingProblem.Pair */
     public int getFirst() {
         return first;
     }
 
-    /** Simple getter for the second element of a Pair */
+    /** Simple getter for the second element of a SolvingProblem.Pair */
     public int getSecond() {
         return second;
     }
 
     /**
-     * Method for determining if two Pair objects are equal
+     * Method for determining if two SolvingProblem.Pair objects are equal
      * @param obj {@link Object}
      * @return {@link boolean}
      */
@@ -53,17 +53,17 @@ public class Pair {
         // null?
         if (obj == null)
             return false;
-        // not a Pair?
+        // not a SolvingProblem.Pair?
         else if (!(obj instanceof Pair))
             return false;
 
-        // cast obj to a Pair and compare
+        // cast obj to a SolvingProblem.Pair and compare
         Pair other = (Pair)obj;
         return other.first == this.first && other.second == this.second;
     }
 
     /**
-     * Method for generating a hash code for a Pair instance
+     * Method for generating a hash code for a SolvingProblem.Pair instance
      * @return {@link int}
      */
     @Override

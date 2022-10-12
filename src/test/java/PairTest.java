@@ -1,7 +1,7 @@
+import SolvingProblem.Pair;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PairTest {
 
@@ -17,27 +17,27 @@ class PairTest {
     /** A simple test to ensure getFirst() getter works properly */
     @Test
     void getFirst() {
-        assertEquals(1, testPair.getFirst());
+        Assertions.assertEquals(1, testPair.getFirst());
     }
 
     /** A simple test to ensure getSecond() getter works properly */
     @Test
     void getSecond() {
-        assertEquals(2, testPair.getSecond());
+        Assertions.assertEquals(2, testPair.getSecond());
     }
 
-    /** A simple tests to ensure two Pair objects are compared correctly */
+    /** A simple tests to ensure two SolvingProblem.Pair objects are compared correctly */
     @Test
     void equals() {
-        assertEquals(new Pair(1,2), testPair);
-        assertNotEquals(new Pair(1,-2), testPair);
+        Assertions.assertEquals(new Pair(1,2), testPair);
+        Assertions.assertNotEquals(new Pair(1,-2), testPair);
     }
 
-    /** A simple test to ensure that two Pair objects' hashCodes compare as expected */
+    /** A simple test to ensure that two SolvingProblem.Pair objects' hashCodes compare as expected */
     @Test
     void hash() {
-        assertEquals((new Pair(1,2)).hashCode(), testPair.hashCode());
-        assertNotEquals((new Pair(1,-2)).hashCode(), testPair.hashCode());
+        Assertions.assertEquals((new Pair(1,2)).hashCode(), testPair.hashCode());
+        Assertions.assertNotEquals((new Pair(1,-2)).hashCode(), testPair.hashCode());
     }
 
 }

@@ -1,3 +1,6 @@
+import SolvingProblem.Pair;
+import SolvingProblem.SolverLCS;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -5,7 +8,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SolverTest {
+class SolverLCSTest {
 
     /** Strings to find subsequence of */
     static String s1;
@@ -33,7 +36,10 @@ class SolverTest {
     /** A test to ensure that Solver's findSubsequencePositions static method returns the expected list of Pairs */
     @Test
     void findSubsequencePositions() {
-        assertEquals(expected, Solver.findSubsequencePositions(s1, s2));
-     //   assertEquals(expectedReverse, Solver.findSubsequencePositions(s2, s1));
+        ArrayList<Pair> actual = SolverLCS.findSubsequencePositions(s1, s2);
+        assertEquals(expected, SolverLCS.findSubsequencePositions(s1, s2));
+
+        ArrayList<Pair> actualReverse = SolverLCS.findSubsequencePositions(s2, s1);
+        assertEquals(expectedReverse, actualReverse);
     }
 }

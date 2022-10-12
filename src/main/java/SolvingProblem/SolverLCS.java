@@ -1,4 +1,4 @@
-/* *****************************************
+package SolvingProblem;/* *****************************************
  * CSCI311 - Design and Analysis of Algorithms
  * Fall2022
  * Instructor: Prof. Edward Talmage
@@ -16,10 +16,9 @@
  * *****************************************/
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
-public class Solver {
+public class SolverLCS {
 
     /**
      * Class method to find the respective indices from each string of the two strings' longest common subsequence
@@ -38,19 +37,75 @@ public class Solver {
         int[][] backTracker = LCS(s1, s2);
 
         // now progress in order from start to finish to reconstruct the longest common subsequence
-        for (int i=backTracker.length-1; i>0; i--){
-            for (int j=backTracker[i].length-1; j>0; j--){
-                if (backTracker[i][j] == 2){
-                    sharedCharacters.put(i-1, j-1);
+        Stack<Character> subsequence = traceBack(backTracker, s1);
+
+        // unwind the stack to get the longest common subsequence
+        String lCS = "";
+        while (!subsequence.isEmpty())
+            lCS += subsequence.pop();
+
+        // using the longest common subsequence
+        int lastJ = -1;
+        int lastI = -1;
+        for (int k=0; k<lCS.length(); k++){
+
+            int s1Idx = -1;
+            // find next occurrence in first string
+            for (int jIdx=lastJ+1; jIdx<s1.length(); jIdx++){
+                if (s1.charAt(jIdx) == lCS.charAt(k)){
+                    s1Idx = jIdx;
+                    lastJ = jIdx;
+                    break;
                 }
             }
+
+            int s2Idx = -1;
+            // find next occurrence in second string
+            for (int iIdx=lastI+1; iIdx<s2.length(); iIdx++){
+                if (s2.charAt(iIdx) == lCS.charAt(k)){
+                    s2Idx = iIdx;
+                    lastI = iIdx;
+                    break;
+                }
+            }
+
+            // insert the index pair
+            pairs.add(new Pair(s1Idx, s2Idx));
+
         }
 
-        // using the Map, create the pairs
-        for (int row : sharedCharacters.keySet())
-            pairs.add(new Pair(row, sharedCharacters.get(row)));
-
+        // the ArrayList of Pairs
         return pairs;
+    }
+
+    /**
+     * Method that, given a String for reference, backtracks along a table to construct the longest common subsequence between the given String and whatever other String produced the table
+     * @param backTracker {@link int[][]}
+     * @param s1 {@link String}
+     * @return {@link Stack<Character>}
+     */
+    public static Stack<Character> traceBack(int[][] backTracker, String s1){
+        // create the stack
+        Stack<Character> subsequence = new Stack<>();
+
+        // to help loop effectively
+        int j=backTracker.length-1;
+        int i=backTracker[j].length-1;
+
+        // backtrack from the bottom right to the top or the left (whichever comes first)
+        while (j > 0 && i > 0){
+            if (backTracker[j][i] == 2){
+                j--;
+                i--;
+                subsequence.push(s1.charAt(j));
+            } else if (backTracker[j][i] == 1)
+                j--;
+            else
+                i--;
+        }
+
+        // return the stack
+        return subsequence;
     }
 
     /**
