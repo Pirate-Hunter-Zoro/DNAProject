@@ -1,20 +1,4 @@
-package SolvingProblem;/* *****************************************
- * CSCI311 - Design and Analysis of Algorithms
- * Fall2022
- * Instructor: Prof. Edward Talmage
- *
- * Group: 7
- * Date: 10/9/22
- * Time: 7:51PM
- *
- * Project: DNAProject
- * Package: SequenceAligner
- * Class: Solver
- *
- * Description: Given two strings, find the indeces of each String that map to the longest common subsequence
- *
- * *****************************************/
-
+package SolvingProblem;
 
 import java.util.*;
 
