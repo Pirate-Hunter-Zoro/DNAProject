@@ -13,6 +13,9 @@ class SolverLCSTest {
     static String s1;
     static String s2;
 
+    /** Our actual solver */
+    SolverLCS solver;
+
     /** To enable easy emplacement into the expected list of Pairs */
     static int[] s1Indices = {0,1,2,3,4};
     static int[] s2Indices = {0,1,13,14,16};
@@ -30,15 +33,16 @@ class SolverLCSTest {
             expected.add(new Pair(s1Indices[k], s2Indices[k]));
             expectedReverse.add(new Pair(s2Indices[k], s1Indices[k]));
         }
+        solver = new SolverLCS();
     }
 
     /** A test to ensure that Solver's findSubsequencePositions static method returns the expected list of Pairs */
     @Test
     void findSubsequencePositions() {
-        ArrayList<Pair> actual = SolverLCS.findSubsequencePositions(s1, s2);
-        assertEquals(expected, SolverLCS.findSubsequencePositions(s1, s2));
+        ArrayList<Pair> actual = solver.findSubsequencePositions(s1, s2);
+        assertEquals(expected, solver.findSubsequencePositions(s1, s2));
 
-        ArrayList<Pair> actualReverse = SolverLCS.findSubsequencePositions(s2, s1);
+        ArrayList<Pair> actualReverse = solver.findSubsequencePositions(s2, s1);
         assertEquals(expectedReverse, actualReverse);
     }
 }

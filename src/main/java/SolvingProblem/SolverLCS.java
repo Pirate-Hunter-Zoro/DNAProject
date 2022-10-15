@@ -2,7 +2,7 @@ package SolvingProblem;
 
 import java.util.*;
 
-public class SolverLCS {
+public class SolverLCS implements SubsequenceFinder{
 
     /**
      * Class method to find the respective indices from each string of the two strings' longest common subsequence
@@ -10,7 +10,8 @@ public class SolverLCS {
      * @param s2 {@link String}
      * @return {@link ArrayList<Pair>}
      */
-    public static ArrayList<Pair> findSubsequencePositions(String s1, String s2){
+    @Override
+    public ArrayList<Pair> findSubsequencePositions(String s1, String s2){
         // to be filled up after we have the 2D back-tracking array
         ArrayList<Pair> pairs = new ArrayList<>();
 
