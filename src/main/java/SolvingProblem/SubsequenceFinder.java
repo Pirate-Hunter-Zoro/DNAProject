@@ -6,10 +6,22 @@ import java.util.Stack;
 /** To specify what method all three of our algorithm classes must include */
 public interface SubsequenceFinder {
 
-    /** All implementers of this interface must implement this method */
+    /**
+     * All implementors of this Interphase must implement this method
+     * Class method to find the respective indices from each string of the two strings' longest common subsequence
+     * @param s1 {@link String}
+     * @param s2 {@link String}
+     * @return {@link ArrayList<Pair>}
+     */
     public ArrayList<Pair> findSubsequencePositions(String s1, String s2);
 
-    /** All implementers of this interface must implement this method */
+    /**
+     * All implementors of this Interphase must implement this method
+     * Given a String for reference, backtracks along a table to construct the longest common subsequence between the given String and whatever other String produced the table
+     * @param backTracker {@link int[][]}
+     * @param s1 {@link String}
+     * @return {@link Stack<Character>}
+     */
     public Stack<Character> traceBack(int[][] backTracker, String s1);
 
     /**
