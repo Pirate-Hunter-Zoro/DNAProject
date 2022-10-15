@@ -7,22 +7,76 @@ import java.util.Stack;
 public interface SubsequenceFinder {
 
     /**
-     * All implementors of this Interphase must implement this method
      * Class method to find the respective indices from each string of the two strings' longest common subsequence
+     * All classes which implement SubsequenceFinder must implement this method
      * @param s1 {@link String}
      * @param s2 {@link String}
      * @return {@link ArrayList<Pair>}
      */
-    public ArrayList<Pair> findSubsequencePositions(String s1, String s2);
+    public ArrayList<Pair> getLineUp(String s1, String s2);
 
     /**
-     * All implementors of this Interphase must implement this method
+     * All implementors of this Interphase have access to this method
+     * Class method to find the respective indices from each string of the two strings' longest common subsequence
+     * @param backTracker {int[][]}
+     * @param s1 {@link String}
+     * @param s2 {@link String}
+     * @return {@link ArrayList<Pair>}
+     */
+    public static ArrayList<Pair> findSubsequencePositions(int[][] backTracker, String s1, String s2){
+        // traceback the table
+        Stack<Character> subsequence = traceBack(backTracker, s1);
+
+        // unwind the stack to get the longest common subsequence
+        String lCS = "";
+        while (!subsequence.isEmpty())
+            lCS += subsequence.pop();
+
+        // to be filled up after we have the 2D back-tracking array
+        ArrayList<Pair> pairs = createPairList(lCS, s1 ,s2);
+
+        // the ArrayList of Pairs
+        return pairs;
+    }
+
+    /**
+     * No need for anything besides SubsequenceFinder to use this method
      * Given a String for reference, backtracks along a table to construct the longest common subsequence between the given String and whatever other String produced the table
      * @param backTracker {@link int[][]}
      * @param s1 {@link String}
      * @return {@link Stack<Character>}
      */
-    public Stack<Character> traceBack(int[][] backTracker, String s1);
+    private static Stack<Character> traceBack(int[][] backTracker, String s1){
+        // create the stack
+        Stack<Character> subsequence = new Stack<>();
+
+        // to help loop effectively
+        int j=backTracker.length-1;
+        int i=backTracker[j].length-1;
+
+        // backtrack from the bottom right to the top or the left (whichever comes first)
+        while (j > 0 && i > 0){
+            if (backTracker[j][i] == 2){
+                j--;
+                i--;
+                subsequence.push(s1.charAt(j));
+            } else if (backTracker[j][i] == 1)
+                j--;
+            else
+                i--;
+        }
+
+        // return the stack
+        return subsequence;
+    }
+
+    /**
+     * Actual implementation to create a table out of two strings, required by all sequence aligner algorithms in this project
+     * @param s1 {@link String}
+     * @param s2 {@link String}
+     * @return {@link int[][]}
+     */
+    public int[][] solve(String s1, String s2);
 
     /**
      * Given the common String between two strings, return the list of pairs of indices that match accordingly

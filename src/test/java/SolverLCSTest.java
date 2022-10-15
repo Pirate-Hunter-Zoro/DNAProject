@@ -39,10 +39,10 @@ class SolverLCSTest {
     /** A test to ensure that Solver's findSubsequencePositions static method returns the expected list of Pairs */
     @Test
     void findSubsequencePositions() {
-        ArrayList<Pair> actual = solver.findSubsequencePositions(s1, s2);
-        assertEquals(expected, solver.findSubsequencePositions(s1, s2));
+        ArrayList<Pair> actual = solver.getLineUp(s1, s2);
+        assertEquals(expected, actual);
 
-        ArrayList<Pair> actualReverse = solver.findSubsequencePositions(s2, s1);
+        ArrayList<Pair> actualReverse = solver.getLineUp(s2, s1);
         assertEquals(expectedReverse, actualReverse);
     }
 }

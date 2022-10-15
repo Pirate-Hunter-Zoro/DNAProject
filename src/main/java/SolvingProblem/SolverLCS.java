@@ -11,54 +11,12 @@ public class SolverLCS implements SubsequenceFinder{
      * @return {@link ArrayList<Pair>}
      */
     @Override
-    public ArrayList<Pair> findSubsequencePositions(String s1, String s2){
+    public ArrayList<Pair> getLineUp(String s1, String s2){
         // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
-        int[][] backTracker = LCS(s1, s2);
+        int[][] backTracker = this.solve(s1, s2);
 
-        // now progress in order from start to finish to reconstruct the longest common subsequence
-        Stack<Character> subsequence = this.traceBack(backTracker, s1);
-
-        // unwind the stack to get the longest common subsequence
-        String lCS = "";
-        while (!subsequence.isEmpty())
-            lCS += subsequence.pop();
-
-        // to be filled up after we have the 2D back-tracking array
-        ArrayList<Pair> pairs = SubsequenceFinder.createPairList(lCS, s1 ,s2);
-
-        // the ArrayList of Pairs
-        return pairs;
-    }
-
-    /**
-     * Method that, given a String for reference, backtracks along a table to construct the longest common subsequence between the given String and whatever other String produced the table
-     * @param backTracker {@link int[][]}
-     * @param s1 {@link String}
-     * @return {@link Stack<Character>}
-     */
-    @Override
-    public Stack<Character> traceBack(int[][] backTracker, String s1){
-        // create the stack
-        Stack<Character> subsequence = new Stack<>();
-
-        // to help loop effectively
-        int j=backTracker.length-1;
-        int i=backTracker[j].length-1;
-
-        // backtrack from the bottom right to the top or the left (whichever comes first)
-        while (j > 0 && i > 0){
-            if (backTracker[j][i] == 2){
-                j--;
-                i--;
-                subsequence.push(s1.charAt(j));
-            } else if (backTracker[j][i] == 1)
-                j--;
-            else
-                i--;
-        }
-
-        // return the stack
-        return subsequence;
+        // call the static List of Pairs constructor
+        return SubsequenceFinder.findSubsequencePositions(backTracker, s1, s2);
     }
 
     /**
@@ -67,7 +25,8 @@ public class SolverLCS implements SubsequenceFinder{
      * @param s2 {@link String}
      * @return {@link int[][]}
      */
-    public static int[][] LCS(String s1, String s2){
+    @Override
+    public int[][] solve(String s1, String s2){
         // initialization
         int[][] counter = new int[s1.length()+1][s2.length()+1];
         int[][] backTracker = new int[s1.length()+1][s2.length()+1];

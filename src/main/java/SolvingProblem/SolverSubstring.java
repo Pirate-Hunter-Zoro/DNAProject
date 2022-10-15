@@ -12,18 +12,23 @@ public class SolverSubstring implements SubsequenceFinder{
      * @return {@link ArrayList<Pair>}
      */
     @Override
-    public ArrayList<Pair> findSubsequencePositions(String s1, String s2) {
-        return null;
+    public ArrayList<Pair> getLineUp(String s1, String s2){
+        // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
+        int[][] backTracker = this.solve(s1, s2);
+
+        // call the static List of Pairs constructor
+        return SubsequenceFinder.findSubsequencePositions(backTracker, s1, s2);
     }
 
     /**
-     * Method that, given a String for reference, backtracks along a table to construct the longest common subsequence between the given String and whatever other String produced the table
-     * @param backTracker {@link int[][]}
+     * Class method to perform the Bottom-Up algorithm needed to compute the 2D array to backtrack the longest common subsequence of two strings
      * @param s1 {@link String}
-     * @return {@link Stack<Character>}
+     * @param s2 {@link String}
+     * @return {@link int[][]}
      */
     @Override
-    public Stack<Character> traceBack(int[][] backTracker, String s1) {
+    public int[][] solve(String s1, String s2){
         return null;
     }
+
 }
