@@ -6,6 +6,10 @@ import java.util.Stack;
 /** To specify what method all three of our algorithm classes must include */
 public interface SubsequenceFinder {
 
+    public static final int UP_LEFT = 0;
+    public static final int LEFT = 1;
+    public static final int UP = 2;
+
     /**
      * Class method to find the respective indices from each string of the two strings' longest common subsequence
      * All classes which implement SubsequenceFinder must implement this method
@@ -56,11 +60,11 @@ public interface SubsequenceFinder {
 
         // backtrack from the bottom right to the top or the left (whichever comes first)
         while (j > 0 && i > 0){
-            if (backTracker[j][i] == 2){
+            if (backTracker[j][i] == UP_LEFT){
                 j--;
                 i--;
                 subsequence.push(s1.charAt(j));
-            } else if (backTracker[j][i] == 1)
+            } else if (backTracker[j][i] == LEFT)
                 j--;
             else
                 i--;

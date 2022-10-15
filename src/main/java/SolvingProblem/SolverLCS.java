@@ -39,16 +39,16 @@ public class SolverLCS implements SubsequenceFinder{
                 char c2 = s2.charAt(i-1);
                 if (c1 == c2) {
                     counter[j][i] = counter[j - 1][i - 1] + 1;
-                    backTracker[j][i] = 2;
+                    backTracker[j][i] = SubsequenceFinder.UP_LEFT;
                 }
                 // if not take the better option between top and left
                 else{
                     if (counter[j][i-1] >= counter[j-1][i]) {
                         counter[j][i] = counter[j][i-1];
-                        backTracker[j][i] = 0;
+                        backTracker[j][i] = SubsequenceFinder.UP;
                     } else {
                         counter[j][i] = counter[j-1][i];
-                        backTracker[j][i] = 1;
+                        backTracker[j][i] = SubsequenceFinder.LEFT;
                     }
                 }
             }

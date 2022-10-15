@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SolverLCSTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-15T22:38:19" hostname="MacBook-Air-2.local" time="0.026">
+<testsuite name="SolverLCSTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-15T23:04:03" hostname="MacBook-Air-2.local" time="0.011">
   <properties/>
-  <testcase name="findSubsequencePositions()" classname="SolverLCSTest" time="0.026"/>
+  <testcase name="findSubsequencePositions()" classname="SolverLCSTest" time="0.011"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
