@@ -1,5 +1,5 @@
 import SolvingProblem.Pair;
-import SolvingProblem.SolverLCS;
+import SolvingProblem.SolverNeedlemanWunsch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,18 +7,18 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SolverLCSTest {
+class SolverNeedlemanWunschTest {
 
     /** Strings to find subsequence of */
-    static String s1 = "CGACT";
-    static String s2 = "CGGGGTTTGGGGGACAT";
+    static String s1 = "CACATA";
+    static String s2 = "CAGCTA";
 
     /** Our actual solver */
-    SolverLCS solver;
+    SolverNeedlemanWunsch solver;
 
     /** To enable easy emplacement into the expected list of Pairs */
-    static int[] s1Indices = {0,1,2,3,4};
-    static int[] s2Indices = {0,1,13,14,16};
+    static int[] s1Indices = {0,1,2,4,5};
+    static int[] s2Indices = {0,1,3,4,5};
 
     /** Lists of Pairs containing the indices to use for each String to create the longest common subsequence */
     static ArrayList<Pair> expected = new ArrayList<>();
@@ -31,7 +31,7 @@ class SolverLCSTest {
             expected.add(new Pair(s1Indices[k], s2Indices[k]));
             expectedReverse.add(new Pair(s2Indices[k], s1Indices[k]));
         }
-        solver = new SolverLCS();
+        solver = new SolverNeedlemanWunsch();
     }
 
     /** A test to ensure that Solver's getLineUp method returns the expected list of Pairs */
@@ -43,4 +43,5 @@ class SolverLCSTest {
         ArrayList<Pair> actualReverse = solver.getLineUp(s2, s1);
         assertEquals(expectedReverse, actualReverse);
     }
+
 }

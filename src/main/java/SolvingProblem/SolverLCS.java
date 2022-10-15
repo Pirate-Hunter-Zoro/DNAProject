@@ -45,10 +45,10 @@ public class SolverLCS implements SubsequenceFinder{
                 else{
                     if (counter[j][i-1] >= counter[j-1][i]) {
                         counter[j][i] = counter[j][i-1];
-                        backTracker[j][i] = SubsequenceFinder.UP;
+                        backTracker[j][i] = SubsequenceFinder.LEFT;
                     } else {
                         counter[j][i] = counter[j-1][i];
-                        backTracker[j][i] = SubsequenceFinder.LEFT;
+                        backTracker[j][i] = SubsequenceFinder.UP;
                     }
                 }
             }

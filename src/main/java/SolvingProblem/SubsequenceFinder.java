@@ -47,10 +47,10 @@ public interface SubsequenceFinder {
      * No need for anything besides SubsequenceFinder to use this method
      * Given a String for reference, backtracks along a table to construct the longest common subsequence between the given String and whatever other String produced the table
      * @param backTracker {@link int[][]}
-     * @param s1 {@link String}
+     * @param s {@link String}
      * @return {@link Stack<Character>}
      */
-    private static Stack<Character> traceBack(int[][] backTracker, String s1){
+    private static Stack<Character> traceBack(int[][] backTracker, String s){
         // create the stack
         Stack<Character> subsequence = new Stack<>();
 
@@ -63,11 +63,11 @@ public interface SubsequenceFinder {
             if (backTracker[j][i] == UP_LEFT){
                 j--;
                 i--;
-                subsequence.push(s1.charAt(j));
+                subsequence.push(s.charAt(j));
             } else if (backTracker[j][i] == LEFT)
-                j--;
-            else
                 i--;
+            else
+                j--;
         }
 
         // return the stack
