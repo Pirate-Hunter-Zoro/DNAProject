@@ -19,7 +19,10 @@ public class SolverSubstring implements SubsequenceFinder{
         int[][] backTracker = this.solve(s1, s2);
 
         // this algorithm cannot use the traditional traceback
-        return this.obtainPairs(backTracker);
+        Pair substringStart = this.obtainStart(backTracker);
+
+        // now construct the alignment
+        return this.constructAlignment(substringStart, s1, s2);
     }
 
     /**
@@ -63,16 +66,20 @@ public class SolverSubstring implements SubsequenceFinder{
     }
 
     /**
-     * Given a backtracking table, obtain the indices that correspond to the longest common substring between the two strings that led to this backtracking table
+     * Given a backtracking table, obtain the indices that correspond to the start of the longest common substring between the two strings
+     * There should be no need for an outside class to call this method
      * @param backTracker {int[][]}
-     * @return {@link ArrayList<Pair>}
+     * @return {@link Pair}
      */
-    public ArrayList<Pair> obtainPairs(int[][] backTracker){
+    private Pair obtainStart(int[][] backTracker){
         // to be returned
         ArrayList<Pair> indexPairs = new ArrayList<>();
 
         // we know this is true because of the solve method
         int maxSubstringLength = backTracker[0][0];
+
+        // pair indicating where the longest common substring starts
+        Pair startCommonSubstring = new Pair(-1,-1);
 
         // traverse along the table until the start of the longest substring is found
         Stack<Pair> pairStack = new Stack<>();
@@ -81,7 +88,9 @@ public class SolverSubstring implements SubsequenceFinder{
                 if (backTracker[i][j]==BACKTRACK_START_INDICATOR){
                     while (pairStack.size() < maxSubstringLength){
                         // keep track of the string indices
-                        pairStack.push(new Pair(i-1, j-1));
+                        Pair thePair = new Pair(i-1,j-1);
+                        pairStack.push(thePair);
+                        startCommonSubstring = thePair;
                         i--;
                         j--;
                     }
@@ -89,12 +98,44 @@ public class SolverSubstring implements SubsequenceFinder{
             }
         }
 
-        // move from the Stack to the list of pairs
-        while (!pairStack.empty())
-            indexPairs.add(pairStack.pop());
+        return startCommonSubstring;
+
+    }
+
+    /**
+     * Given the two strings and the starting point in each string of the common substring, construct the alignment
+     * @param substringStart
+     * @param s1
+     * @param s2
+     * @return {@link ArrayList<Pair>}
+     */
+    private ArrayList<Pair> constructAlignment(Pair substringStart, String s1, String s2){
+        // now that we have the starting point in each string of the longest common substring, we need to figure out how to line up the strings
+        int offset = substringStart.getFirst() - substringStart.getSecond();
+        int s1Start = -1;
+        int s2Start = -1;
+        if (offset > 0){
+            s1Start = offset;
+            s2Start = 0;
+        } else {
+            s1Start = 0;
+            s2Start = -offset;
+        }
+
+        // to contain the pairs of our total alignment
+        ArrayList<Pair> pairs = new ArrayList<>();
+
+        // given the starts, line up until we run out of characters in either string
+        int s1Idx = s1Start;
+        int s2Idx = s2Start;
+        while (s1Idx < s1.length() && s2Idx < s2.length()) {
+            pairs.add(new Pair(s1Idx, s2Idx));
+            s1Idx++;
+            s2Idx++;
+        }
 
         // return the list of pairs
-        return indexPairs;
+        return pairs;
 
     }
 

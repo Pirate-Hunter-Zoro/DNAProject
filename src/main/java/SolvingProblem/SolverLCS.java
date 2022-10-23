@@ -16,7 +16,7 @@ public class SolverLCS implements SubsequenceFinder{
         int[][] backTracker = this.solve(s1, s2);
 
         // call the static List of Pairs constructor
-        return SubsequenceFinder.findSubsequencePositions(backTracker, s1, s2);
+        return SubsequenceFinder.findSubsequencePositions(backTracker);
     }
 
     /**

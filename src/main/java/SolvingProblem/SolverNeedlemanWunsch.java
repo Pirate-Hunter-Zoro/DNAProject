@@ -6,7 +6,7 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
     // source - https://www.youtube.com/watch?v=b6xBvl0yPAY&list=WL&index=1
 
     // Come back and change this class depending on what you determine GAP and MATCH values should be
-    public static final int GAP_PUNISHMENT = -1;
+    public static final int GAP_PUNISHMENT = -2;
     public static final int MATCH_REWARD = 1;
 
     /**
@@ -21,7 +21,7 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
         int[][] backTracker = this.solve(s1, s2);
 
         // call the static List of Pairs constructor
-        return SubsequenceFinder.findSubsequencePositions(backTracker, s1, s2);
+        return SubsequenceFinder.findSubsequencePositions(backTracker);
     }
 
     /**
@@ -40,7 +40,7 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
         for (int i=0; i<=s1.length(); i++){
             scores[i][0] = GAP_PUNISHMENT * i;
         }
-        for (int j=0; j<s2.length(); j++){
+        for (int j=0; j<=s2.length(); j++){
             scores[0][j] = GAP_PUNISHMENT * j;
         }
 

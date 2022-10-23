@@ -1,5 +1,6 @@
 import SolvingProblem.Pair;
 import SolvingProblem.SolverLCS;
+import SolvingProblem.SolverNeedlemanWunsch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,37 +11,53 @@ import static org.junit.jupiter.api.Assertions.*;
 class SolverLCSTest {
 
     /** Strings to find subsequence of */
-    static String s1 = "CGACT";
-    static String s2 = "CGGGGTTTGGGGGACAT";
+    static String s1 = "CACATA";
+    static String s2 = "CAGCTA";
+
+    static String s3 = "SIMILARITY";
+    static String s4 = "PILLAR";
+
+    static String s5 = "ATGGCGT";
+    static String s6 = "ATGAGT";
 
     /** Our actual solver */
     SolverLCS solver;
 
-    /** To enable easy emplacement into the expected list of Pairs */
-    static int[] s1Indices = {0,1,2,3,4};
-    static int[] s2Indices = {0,1,13,14,16};
-
     /** Lists of Pairs containing the indices to use for each String to create the longest common subsequence */
-    static ArrayList<Pair> expected = new ArrayList<>();
-    static ArrayList<Pair> expectedReverse = new ArrayList<>();
+    static String expected1 = "CACTA";
+
+    static String expected2 = "ILAR";
+
+    static String expected3 = "ATGGT";
 
     /** Pre-test String setup */
     @BeforeEach
     void setUp() {
-        for (int k=0; k< s1Indices.length; k++){
-            expected.add(new Pair(s1Indices[k], s2Indices[k]));
-            expectedReverse.add(new Pair(s2Indices[k], s1Indices[k]));
-        }
         solver = new SolverLCS();
     }
 
     /** A test to ensure that Solver's getLineUp method returns the expected list of Pairs */
     @Test
     void findSubsequencePositions() {
-        ArrayList<Pair> actual = solver.getLineUp(s1, s2);
-        assertEquals(expected, actual);
+        assertEquals(expected1, new MatchMaker(s1,s2,solver.getLineUp(s1,s2)).makeMatch());
 
-        ArrayList<Pair> actualReverse = solver.getLineUp(s2, s1);
-        assertEquals(expectedReverse, actualReverse);
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        assertEquals(expected2, new MatchMaker(s3,s4,solver.getLineUp(s3,s4)).makeMatch());
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        assertEquals(expected3, new MatchMaker(s5,s6,solver.getLineUp(s5,s6)).makeMatch());
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        ArrayList<Pair> actual4 = solver.getLineUp("","DUMMY");
+        assertEquals(new ArrayList<>(), actual4);
+
+        ArrayList<Pair> actualReverse4 = solver.getLineUp("DUMMY","");
+        assertEquals(new ArrayList<>(), actualReverse4);
+
+        assertEquals(new ArrayList<>(), solver.getLineUp("",""));
+
     }
 }
