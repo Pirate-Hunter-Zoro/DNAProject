@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ReaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-23T21:17:25" hostname="MacBook-Air-2.local" time="0.016">
+<testsuite name="ReaderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-23T21:52:29" hostname="MacBook-Air-2.local" time="0.044">
   <properties/>
-  <testcase name="testQuery()" classname="ReaderTest" time="0.016"/>
+  <testcase name="testMap()" classname="ReaderTest" time="0.033"/>
+  <testcase name="testQuery()" classname="ReaderTest" time="0.01"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
