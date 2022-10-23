@@ -1,6 +1,6 @@
+import FileScanner.MatchMaker;
 import SolvingProblem.Pair;
 import SolvingProblem.SolverLCS;
-import SolvingProblem.SolverNeedlemanWunsch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

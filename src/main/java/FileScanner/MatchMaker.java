@@ -1,4 +1,4 @@
-/* *****************************************
+package FileScanner;/* *****************************************
  * CSCI311 - Design and Analysis of Algorithms
  * Fall2022
  * Instructor: Prof. Edward Talmage
