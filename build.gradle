@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group 'org.example'
@@ -9,6 +11,11 @@ repositories {
     mavenCentral()
 }
 
+javafx {
+    version = "17.0.2"
+    modules = [ 'javafx.graphics', 'javafx.controls', 'javafx.fxml' ]
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -16,4 +23,15 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    //mainModule = "DNAProject"
+    mainClassName = "UImain"
+    if (project.hasProperty("mainClass")) {
+        getMainClass().set(project.getProperty("mainClass"))
+    }
+    else {
+        getMainClass().set(mainClassName)
+    }
 }
