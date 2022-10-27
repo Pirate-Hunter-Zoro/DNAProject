@@ -155,7 +155,19 @@ public class UImain extends Application{
         root.getChildren().add(lblBottom);
 
         btnAnalyze.setOnAction(event -> {
-            lblBottom.setText(AnalyzeMethodBox.getValue());   //THIS WILL RUN OUR ANALYZER, with specified value
+            lblBottom.setText("Best match for:" + " " + AnalyzeMethodBox.getValue());   //THIS WILL RUN OUR ANALYZER, with specified value
+            if (AnalyzeMethodBox.getValue() == "Longest Common Substring"){
+                System.out.println("LCString does thing"); //TODO lcs functionality, use queryFile and databaseFile
+            }
+            if (AnalyzeMethodBox.getValue() == "Longest Common Subsequence"){
+                System.out.println("LCSeq does thing"); //TODO lcs functionality
+            }
+            if (AnalyzeMethodBox.getValue() == "Needle-Wunsch Algorithm"){
+                System.out.println("Needle-Wunsch does thing"); //TODO lcs functionality
+            }
+            if (AnalyzeMethodBox.getValue() == "ALL METHODS"){
+                System.out.println("do all 3"); //TODO lcs functionality
+            }
         });
 
     }
