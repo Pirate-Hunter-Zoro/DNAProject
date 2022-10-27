@@ -36,7 +36,7 @@ import java.io.File;
 //imports to analyze sequence
 
 
-public class UImain extends Application{
+public class UIMain extends Application{
     private Button btnAnalyze;
     private Button btnQuery;
     private Button btnDatabase;
