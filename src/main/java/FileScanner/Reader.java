@@ -31,8 +31,8 @@ import java.util.regex.Pattern;
 public class Reader {
 
     // what files are we reading?
-    public static final String QUERY_FILE = "DNA_query.txt";
-    public static final String DATABASE_FILE = "DNA_sequences.txt";
+    private String queryFile;
+    private String databaseFile;
 
     // what regular expression are we using to look through a file for DNA sequences?
     public static final String DNA_REGEX = "(([ATGC]+[\\n]?){2,})";
@@ -55,8 +55,10 @@ public class Reader {
      * Constructor for the Reader - it will need to call some helper methods
      * @param solver
      */
-    public Reader(SubsequenceFinder solver){
+    public Reader(SubsequenceFinder solver, String queryFile, String databaseFile){
         this.solver = solver;
+        this.queryFile = queryFile;
+        this.databaseFile = databaseFile;
         this.query = readForQuery();
         this.descriptionToDNAMap = readInSequences();
         this.countOfClosestMatch = 0;
@@ -91,9 +93,9 @@ public class Reader {
      * Opens the query file and gets a hold of the query via regular expressions
      * @return {@link String}
      */
-    private static String readForQuery(){
-        try (FileInputStream inStream = new FileInputStream(QUERY_FILE)){
-            return scanStreamForQuery(inStream);
+    private String readForQuery(){
+        try (FileInputStream inStream = new FileInputStream(this.queryFile)){
+            return this.scanStreamForQuery(inStream);
         } catch (IOException e){
             return "This should never happen";
         }
@@ -153,12 +155,12 @@ public class Reader {
      * Obtain all the DNA descriptions and map them to their DNA chains
      * @return {@link HashMap<String,String>}
      */
-    private static HashMap<String,String> readInSequences(){
+    private HashMap<String,String> readInSequences(){
         HashMap<String,String> DNAMap = new HashMap<>();
 
         // scan to create lists of sequences and descriptions
-        ArrayList<String> DNASequences = scanForDNASequences();
-        ArrayList<String> DNADescriptions = scanForDNADescriptions();
+        ArrayList<String> DNASequences = this.scanForDNASequences();
+        ArrayList<String> DNADescriptions = this.scanForDNADescriptions();
 
         // now just construct the map
         for (int i=0; i<DNASequences.size(); i++)
@@ -171,9 +173,9 @@ public class Reader {
      * Scan the relevant static file for all the DNA sequences
      * @return {@link ArrayList<String>}
      */
-    private static ArrayList<String> scanForDNASequences(){
+    private ArrayList<String> scanForDNASequences(){
         ArrayList<String> sequences = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(DATABASE_FILE)){
+        try (FileInputStream inputStream = new FileInputStream(this.databaseFile)){
             // goes through the file and adds all the matches to 'sequences'
             getAllDNASequences(sequences, inputStream);
             return sequences;
@@ -186,9 +188,9 @@ public class Reader {
      * Scan the relevant static file for all the DNA descriptions
      * @return {@link ArrayList<String>}
      */
-    private static ArrayList<String> scanForDNADescriptions(){
+    private ArrayList<String> scanForDNADescriptions(){
         ArrayList<String> descriptions = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(DATABASE_FILE)){
+        try (FileInputStream inputStream = new FileInputStream(this.databaseFile)){
             // goes through the file and adds all the matches to 'descriptions'
             getAllDNADescriptions(descriptions, inputStream);
             return descriptions;
