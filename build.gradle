@@ -27,7 +27,8 @@ test {
 
 application {
     mainModule = "DNAProject"
-    mainClassName = "UserInterface.UImain"
+    mainClassName = "UserInterface.UIMain"
+
     if (project.hasProperty("mainClass")) {
         getMainClass().set(project.getProperty("mainClass"))
     }
