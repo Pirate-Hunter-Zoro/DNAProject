@@ -8,12 +8,13 @@
  * Time: 6:02PM
  *
  * Project: DNAProject
- * Package: PACKAGE_NAME
- * Class: Main
+ * Class: UserInterface.Main
  *
- * Description: Main method as the user for an algorithm to implement, and perform DNA matching with said algorithm
+ * Description: UserInterface.Main method as the user for an algorithm to implement, and perform DNA matching with said algorithm
  *
  * *****************************************/
+
+package UserInterface;
 
 import FileScanner.Reader;
 import SolvingProblem.SolverLCS;
