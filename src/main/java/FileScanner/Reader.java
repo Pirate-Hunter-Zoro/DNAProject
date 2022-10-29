@@ -20,6 +20,7 @@ package FileScanner;
 import SolvingProblem.Pair;
 import SolvingProblem.SubsequenceFinder;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ import java.util.regex.Pattern;
 public class Reader {
 
     // what files are we reading?
-    private String queryFile;
-    private String databaseFile;
+    private File queryFile;
+    private File databaseFile;
 
     // what regular expression are we using to look through a file for DNA sequences?
     public static final String DNA_REGEX = "(([ATGC]+[\\n]?){2,})";
@@ -55,7 +56,7 @@ public class Reader {
      * Constructor for the Reader - it will need to call some helper methods
      * @param solver
      */
-    public Reader(SubsequenceFinder solver, String queryFile, String databaseFile){
+    public Reader(SubsequenceFinder solver, File queryFile, File databaseFile){
         this.solver = solver;
         this.queryFile = queryFile;
         this.databaseFile = databaseFile;
