@@ -20,6 +20,8 @@
 
 package UserInterface;
 
+import SolvingProblem.SolverLCS;
+import SolvingProblem.SolverNeedlemanWunsch;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 
@@ -34,7 +36,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import java.io.File;
 
 //imports to analyze sequence
-
+import FileScanner.Reader;
+import SolvingProblem.SolverSubstring;
 
 public class UIMain extends Application{
     private Button btnAnalyze;
@@ -44,8 +47,12 @@ public class UIMain extends Application{
     private Label lblAnalyzeChoice;
     private Label lblQuery;
     private Label lblDatabase;
-    private Label lblBottom;
+    private Label lblResult;
+    private Label lblResultNum;
+    private Label lblResultExtra;
 
+
+    private String bestMatch;
     File queryFile = null;
     File databaseFile = null;
     private ChoiceBox<String> AnalyzeMethodBox;
@@ -66,7 +73,7 @@ public class UIMain extends Application{
         initSceneGraph(root);
 
         //add scene graph to stage
-        primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setScene(new Scene(root, 800, 600));
 
         //set title for main stage
         primaryStage.setTitle("311 DNA Sequence Analyzer");
@@ -98,9 +105,12 @@ public class UIMain extends Application{
         lblDatabase = new Label("!NO DATABASE SELECTED!");
         lblAnalyzeChoice = new Label();
         lblAnalyzeChoice.setText("Select an Analysis Method:");
+        lblResult = new Label();
+        lblResultNum = new Label();
+        lblResultExtra = new Label();
 
 
-        lblBottom = new Label();
+        lblResult = new Label();
 
         //create our buttons
         btnQuery = new Button();
@@ -127,6 +137,7 @@ public class UIMain extends Application{
         ExtensionFilter txtExtFilter = new ExtensionFilter("Text Files", "*.txt");
         ExtensionFilter allExtFilter = new ExtensionFilter("All Files", "*.txt");
         fileChooser.getExtensionFilters().addAll(txtExtFilter,allExtFilter);
+
         //Source Select Node
         QuerySelectNode.getChildren().addAll(btnQuery, lblQuery);
         btnQuery.setOnAction(event -> {
@@ -152,21 +163,40 @@ public class UIMain extends Application{
         root.getChildren().add(DatabaseSelectNode);
         root.getChildren().add(btnAnalyze);
 
-        root.getChildren().add(lblBottom);
+        root.getChildren().add(lblResult);
+        root.getChildren().add(lblResultNum);
+        root.getChildren().add(lblResultExtra);
 
         btnAnalyze.setOnAction(event -> {
-            lblBottom.setText("Best match for:" + " " + AnalyzeMethodBox.getValue());   //THIS WILL RUN OUR ANALYZER, with specified value
-            if (AnalyzeMethodBox.getValue() == "Longest Common Substring"){
-                System.out.println("LCString does thing"); //TODO lcs functionality, use queryFile and databaseFile
+            //THIS WILL RUN OUR ANALYZER, with specified value
+            lblResultExtra.setText("");
+            if (queryFile == null || databaseFile == null){
+                lblResult.setText("!PLEASE SELECT VALID INPUT FILES!");
             }
-            if (AnalyzeMethodBox.getValue() == "Longest Common Subsequence"){
-                System.out.println("LCSeq does thing"); //TODO lcs functionality
+            else if (AnalyzeMethodBox.getValue() == "Longest Common Substring"){
+                Reader reader = new Reader(new SolverSubstring(),  queryFile.getPath(), databaseFile.getPath());
+                lblResult.setText("Best Match: " +  reader.findBestMatch());
+                lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
             }
-            if (AnalyzeMethodBox.getValue() == "Needle-Wunsch Algorithm"){
-                System.out.println("Needle-Wunsch does thing"); //TODO lcs functionality
+            else if (AnalyzeMethodBox.getValue() == "Longest Common Subsequence"){
+                Reader reader = new Reader(new SolverLCS(),  queryFile.getPath(), databaseFile.getPath());
+                lblResult.setText("Best Match: " +  reader.findBestMatch());
+                lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
             }
-            if (AnalyzeMethodBox.getValue() == "ALL METHODS"){
-                System.out.println("do all 3"); //TODO lcs functionality
+            else if (AnalyzeMethodBox.getValue() == "Needle-Wunsch Algorithm"){
+                Reader reader = new Reader(new SolverNeedlemanWunsch(),  queryFile.getPath(), databaseFile.getPath());
+                lblResult.setText("Best Match: " +  reader.findBestMatch());
+                lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
+            }
+            else if (AnalyzeMethodBox.getValue() == "ALL METHODS"){
+                Reader reader = new Reader(new SolverSubstring(),  queryFile.getPath(), databaseFile.getPath());
+                lblResult.setText("Longest Common Substring Best Match:\n" +  reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
+
+                reader = new Reader(new SolverLCS(),  queryFile.getPath(), databaseFile.getPath());
+                lblResultNum.setText("Longest Common Subsequence Best Match:\n" + reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
+
+                reader = new Reader(new SolverNeedlemanWunsch(),  queryFile.getPath(), databaseFile.getPath());
+                lblResultExtra.setText("Needle-Wunsch Algorithm Best Match:\n" + reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
             }
         });
 
