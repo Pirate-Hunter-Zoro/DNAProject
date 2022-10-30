@@ -72,8 +72,6 @@ public class SolverSubstring implements SubsequenceFinder{
      * @return {@link Pair}
      */
     private Pair obtainStart(int[][] backTracker){
-        // to be returned
-        ArrayList<Pair> indexPairs = new ArrayList<>();
 
         // we know this is true because of the solve method
         int maxSubstringLength = backTracker[0][0];
