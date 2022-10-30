@@ -76,9 +76,6 @@ public class SolverSubstring implements SubsequenceFinder{
         // we know this is true because of the solve method
         int maxSubstringLength = backTracker[0][0];
 
-        // pair indicating where the longest common substring starts
-        Pair startCommonSubstring = new Pair(-1,-1);
-
         // traverse along the table until the start of the longest substring is found
         Stack<Pair> pairStack = new Stack<>();
         for (int i=backTracker.length-1; i>0; i--){
@@ -88,7 +85,6 @@ public class SolverSubstring implements SubsequenceFinder{
                         // keep track of the string indices
                         Pair thePair = new Pair(i-1,j-1);
                         pairStack.push(thePair);
-                        startCommonSubstring = thePair;
                         i--;
                         j--;
                     }
@@ -96,7 +92,7 @@ public class SolverSubstring implements SubsequenceFinder{
             }
         }
 
-        return startCommonSubstring;
+        return pairStack.pop();
 
     }
 
