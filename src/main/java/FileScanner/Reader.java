@@ -58,8 +58,8 @@ public class Reader {
      */
     public Reader(SubsequenceFinder solver, File queryFile, File databaseFile){
         this.solver = solver;
-        this.queryFile = queryFile.getPath();
-        this.databaseFile = databaseFile.getPath();
+        this.queryFile = queryFile;
+        this.databaseFile = databaseFile;
         this.query = readForQuery();
         this.descriptionToDNAMap = readInSequences();
         this.countOfClosestMatch = 0;

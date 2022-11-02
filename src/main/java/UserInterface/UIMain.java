@@ -23,6 +23,7 @@ package UserInterface;
 import SolvingProblem.SolverLCS;
 import SolvingProblem.SolverNeedlemanWunsch;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import javafx.scene.Scene;
@@ -68,12 +69,18 @@ public class UIMain extends Application{
         //root node for scene graph
         VBox root = new VBox(20);
         root.setAlignment(Pos.TOP_CENTER);
+        Insets inset = new Insets(10,20,10,20);
+        root.setPadding(inset);
 
         //Init the controls for our graph
         initSceneGraph(root);
 
         //add scene graph to stage
         primaryStage.setScene(new Scene(root, 800, 600));
+
+        //set minimum size
+        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(500);
 
         //set title for main stage
         primaryStage.setTitle("311 DNA Sequence Analyzer");
@@ -99,6 +106,9 @@ public class UIMain extends Application{
 
         HBox DatabaseSelectNode = new HBox(10);
         DatabaseSelectNode.setAlignment(Pos.CENTER);
+
+        VBox OutputNode = new VBox(30);
+        OutputNode.setAlignment(Pos.CENTER_LEFT);
 
         //Create our labels
         lblQuery = new Label("!NO SOURCE SELECTED!");
@@ -157,15 +167,18 @@ public class UIMain extends Application{
             }
         });
 
+        //OutputNode
+        OutputNode.getChildren().add(lblResult);
+        OutputNode.getChildren().add(lblResultNum);
+        OutputNode.getChildren().add(lblResultExtra);
+
         //add elements to root
         root.getChildren().add(DropDownBoxNode);
         root.getChildren().add(QuerySelectNode);
         root.getChildren().add(DatabaseSelectNode);
         root.getChildren().add(btnAnalyze);
+        root.getChildren().add(OutputNode);
 
-        root.getChildren().add(lblResult);
-        root.getChildren().add(lblResultNum);
-        root.getChildren().add(lblResultExtra);
 
         btnAnalyze.setOnAction(event -> {
             //THIS WILL RUN OUR ANALYZER, with specified value
