@@ -25,7 +25,7 @@ public interface SubsequenceFinder {
      * @param backTracker {int[][]}
      * @return {@link ArrayList<Pair>}
      */
-    public static ArrayList<Pair> findSubsequencePositions(int[][] backTracker){
+    static ArrayList<Pair> findSubsequencePositions(int[][] backTracker){
         // traceback the table
         Stack<Pair> subsequence = traceBack(backTracker);
 

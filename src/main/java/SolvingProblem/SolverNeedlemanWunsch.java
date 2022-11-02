@@ -3,11 +3,12 @@ package SolvingProblem;
 import java.util.ArrayList;
 
 public class SolverNeedlemanWunsch implements SubsequenceFinder {
-    // source - https://www.youtube.com/watch?v=b6xBvl0yPAY&list=WL&index=1
+    // source - https://www.youtube.com/watch?v=ipp-pNRIp4g
 
-    // Come back and change this class depending on what you determine GAP and MATCH values should be
+    // Come back and change this class depending on what you determine GAP, MATCH, and MISMATCH values should be
     public static final int GAP_PUNISHMENT = -2;
     public static final int MATCH_REWARD = 1;
+    public static final int MISMATCH_PUNISHMENT = -1;
 
     /**
      * Class method to find the respective indices from each string of the two strings' longest common subsequence
@@ -47,14 +48,17 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
         // perform the bottom up traversal
         for (int i=1; i<scores.length; i++){
             for (int j=1; j<scores[i].length; j++){
+
                 // from top left
                 int candidate0 = scores[i-1][j-1];
                 // do strings match at this position (reward)?
-                // if not, gap punishment
                 if (s1.charAt(i-1)==s2.charAt(j-1))
                     candidate0 += MATCH_REWARD;
-                else
-                    candidate0 += GAP_PUNISHMENT;
+                else{ // then this choice corresponds with a mismatch alignment
+                    candidate0 += MISMATCH_PUNISHMENT;
+                }
+
+                // the other two choices are to just consider a gap in one of the two strings
 
                 // from directly left
                 int candidate1 = scores[i][j-1] + GAP_PUNISHMENT; // automatically a gap in s2

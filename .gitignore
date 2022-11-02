@@ -27,6 +27,7 @@
 *.iml
 *.ipr
 *.iws
+*.xml
 
 # Gradle config and cache, and output directory
 .gradle/

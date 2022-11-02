@@ -6,6 +6,8 @@ import SolvingProblem.SolverSubstring;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReaderTest {
@@ -36,9 +38,9 @@ class ReaderTest {
      */
     @BeforeEach
     void setup(){
-        reader1 = new Reader(new SolverLCS(), "DNA_query.txt", "DNA_sequences.txt");
-        reader2 = new Reader(new SolverSubstring(), "DNA_query.txt", "DNA_sequences.txt");
-        reader3 = new Reader(new SolverNeedlemanWunsch(), "DNA_query.txt", "DNA_sequences.txt");
+        reader1 = new Reader(new SolverLCS(), new File("DNA_query.txt"), new File("DNA_sequences.txt"));
+        reader2 = new Reader(new SolverSubstring(), new File("DNA_query.txt"), new File("DNA_sequences.txt"));
+        reader3 = new Reader(new SolverNeedlemanWunsch(), new File("DNA_query.txt"), new File("DNA_sequences.txt"));
     }
 
     /**
@@ -73,6 +75,10 @@ class ReaderTest {
                 "TGA";
         assertEquals(expectedSequence, reader1.getDNASequence(description));
 
+        description = ">AY092023.1 Gorilla gorilla insulin gene, partial cds";
+        expectedSequence = "GTGCGGCTCCCACCTGGTGGAAGCTCTCTACCTAGTGTGCGGGGAACGAGGCTTCTTCTACACACCCAAGACCCGCCGGGAGGCAGAGGACCTGCAGGGTGAGCCAACCGCCCGTTGCTGCCCCTGGCCGCCCCCAGCCACCCCCTGCTCCTGGCGCTCCCACCCAGCATGGGCAGAAGGGGGCAGGAGGCTGCCACCCAGCAGGGGGTCAGGTGTACTTTTTTAAAAAGAAATGAAGTTCTCTTGGTCACGTCCTAAAAGTGACCAGCTCCCTGTGGCCCAGTCAGAGTCTCAGCCTGAGGACGGTGTTGGCTTCGGCAGCCCCGAGATACATCAGAGGGTGGGCACGCTCCTCCCTCCACTCGCCCCTCAAACAAATGCCCCGCAGCCCATTTCTCCACCCTCATTTGAAGACCTCAGATTCAAGTGTTAAGTCCTGGGTGACCTGGGGTCACAGGGTGCCCCACGCTGCCTGCCTCTGGGCGAACGCCCCATCACGCCCTGAGGAGGGCGTGGCTGCCTGCCTGAGTGGGCCAGACCCCTGTCGCCAGGCCTCACGGCAGCTCCATAGTCAGGAGATGGGGAAGATGCTGGGGACAGGCCCTGGGGAGAAGTACTGGGGCCACCTGTTCAGGCTCCCGCTGTGACACCGCCCCGGGGCAGGGGAAGGAGGTAGGACATGTGGGCGTTGGGGCCTGTAGGTCCACACCCAGTGTGGGTGACCCTCCCTCTAACCTGGGTCCAGCCCGGCTGGAGATGGGTGGGAGTGCAACCTAGGCCTGGTGGGCAGGCGGGCACTGTCTCTCCCTGACTGTGTCCTCCTGTGTCCCTCTGCCTCGCCGCTGTTCCGGAACCTGCTCTGCGCGGCGTGCCCTGGCAGTGGGGCAGGTGGAGCTGGGCGGGGGCCCTGGTGCAGGCAGCCTGCAGCCCTTGGCCCTGGAGGGGTCCCTGCAGAAGCGTGGCATCGTGGAACAATGC";
+        assertEquals(expectedSequence.length(), reader1.getDNASequence(description).length());
+
         description = ">NC_000011.10:c2161209-2159779 Homo sapiens chromosome 11, GRCh38.p13 Insulin";
         expectedSequence = "AGCCCTCCAGGACAGGCTGCATCAGAAGAGGCCATCAAGCAGGTCTGTTCCAAGGGCCTTTGCGTCAGGT" +
                 "GGGCTCAGGATTCCAGGGTGGCTGGACCCCAGGCCCCAGCTCTGCAGCAGGGAGGACGTGGCTGGGCTCG" +
@@ -95,7 +101,7 @@ class ReaderTest {
                 "CCTTGGCCCTGGAGGGGTCCCTGCAGAAGCGTGGCATTGTGGAACAATGCTGTACCAGCATCTGCTCCCT" +
                 "CTACCAGCTGGAGAACTACTGCAACTAGACGCAGCCCGCAGGCAGCCCCACACCCGCCGCCTCCTGCACC" +
                 "GAGAGAGATGGAATAAAGCCCTTGAACCAGC";
-        assertEquals(expectedSequence, reader1.getDNASequence(description));
+        assertEquals(expectedSequence.length(), reader1.getDNASequence(description).length());
 
     }
 

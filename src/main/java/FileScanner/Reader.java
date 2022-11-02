@@ -128,7 +128,7 @@ public class Reader {
             MatchResult matchResult = looker.match();
             DNABlock += matchResult.group(1);
         }
-        return DNABlock + "\n"; // add a new line to make the getStringAsDNASequence method easier
+        return DNABlock + "\n"; // add a new line to make the getBlockAsDNASequence method easier
     }
 
     /**
@@ -213,7 +213,7 @@ public class Reader {
         while (matcher.findWithinHorizon(pattern, 0) != null){
             String blockOfDNA = matcher.match().group(1).toUpperCase();
             // unwrap the block into one long string
-            sequences.add(getBlockAsDNASequence(blockOfDNA));
+            sequences.add(getBlockAsDNASequence(blockOfDNA+"\n"));
         }
     }
 
