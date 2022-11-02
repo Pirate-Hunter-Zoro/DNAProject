@@ -36,8 +36,8 @@ public class Reader {
     private File databaseFile;
 
     // what regular expression are we using to look through a file for DNA sequences?
-    public static final String DNA_REGEX = "(([ATGC]+[\\n]?){2,})";
-    public static final String LINE_OF_DNA_REGEX = "[ATGC]+(?=\\n)";
+    public static final String DNA_REGEX = "(?<![^atgcATGC\\n])(([atgcATGC]+[\\n]?){2,})(?![^atgcATGC\\n])";
+    public static final String LINE_OF_DNA_REGEX = "[atgcATGC]+(?=\\n)";
 
     // what regular expression are we using to look through a file for DNA descriptions?
     public static final String DNA_DESCRIPTION = ">[^\\n]+";
@@ -58,8 +58,8 @@ public class Reader {
      */
     public Reader(SubsequenceFinder solver, File queryFile, File databaseFile){
         this.solver = solver;
-        this.queryFile = queryFile;
-        this.databaseFile = databaseFile;
+        this.queryFile = queryFile.getPath();
+        this.databaseFile = databaseFile.getPath();
         this.query = readForQuery();
         this.descriptionToDNAMap = readInSequences();
         this.countOfClosestMatch = 0;
@@ -132,7 +132,7 @@ public class Reader {
     }
 
     /**
-     * One a block of DNA is found within a file (including the new lines), break it up and combine line by line to form one long string of only A, T, G, or C
+     * Once a block of DNA is found within a file (including the new lines), break it up and combine line by line to form one long string of only A, T, G, or C
      * @param DNABlock {@link String}
      * @return DNASequence {@link String}
      */
@@ -211,7 +211,7 @@ public class Reader {
 
         // now match until we run out of matches
         while (matcher.findWithinHorizon(pattern, 0) != null){
-            String blockOfDNA = matcher.match().group(1);
+            String blockOfDNA = matcher.match().group(1).toUpperCase();
             // unwrap the block into one long string
             sequences.add(getBlockAsDNASequence(blockOfDNA));
         }
@@ -249,7 +249,7 @@ public class Reader {
             // calculate how good the match is
             String sequence = descriptionToDNAMap.get(key);
             ArrayList<Pair> pairs = solver.getLineUp(this.query, sequence);
-            matchMaker = new MatchMaker(this.query, sequence, pairs);
+            matchMaker = new MatchMaker(this.query.toUpperCase(), sequence, pairs);
             String match = matchMaker.makeMatch();
 
             // set the new record

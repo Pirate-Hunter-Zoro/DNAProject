@@ -4,6 +4,5 @@ module DNAProject {
     requires javafx.fxml;
 
     exports UserInterface;
-    opens UserInterface to javafx.fxml;
 
 }

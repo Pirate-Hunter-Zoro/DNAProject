@@ -18,11 +18,15 @@ public class SolverSubstring implements SubsequenceFinder{
         // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
         int[][] backTracker = this.solve(s1, s2);
 
-        // this algorithm cannot use the traditional traceback
-        Pair substringStart = this.obtainStart(backTracker);
+        if (backTracker.length > 1) {
+            // this algorithm cannot use the traditional traceback
+            Pair substringStart = this.obtainStart(backTracker);
+            // now construct the alignment
+            return this.constructAlignment(substringStart, s1, s2);
+        }
 
-        // now construct the alignment
-        return this.constructAlignment(substringStart, s1, s2);
+        // otherwise, the query was the empty string
+        return new ArrayList<>();
     }
 
     /**
@@ -72,14 +76,9 @@ public class SolverSubstring implements SubsequenceFinder{
      * @return {@link Pair}
      */
     private Pair obtainStart(int[][] backTracker){
-        // to be returned
-        ArrayList<Pair> indexPairs = new ArrayList<>();
 
         // we know this is true because of the solve method
         int maxSubstringLength = backTracker[0][0];
-
-        // pair indicating where the longest common substring starts
-        Pair startCommonSubstring = new Pair(-1,-1);
 
         // traverse along the table until the start of the longest substring is found
         Stack<Pair> pairStack = new Stack<>();
@@ -90,7 +89,6 @@ public class SolverSubstring implements SubsequenceFinder{
                         // keep track of the string indices
                         Pair thePair = new Pair(i-1,j-1);
                         pairStack.push(thePair);
-                        startCommonSubstring = thePair;
                         i--;
                         j--;
                     }
@@ -98,7 +96,7 @@ public class SolverSubstring implements SubsequenceFinder{
             }
         }
 
-        return startCommonSubstring;
+        return pairStack.pop();
 
     }
 
