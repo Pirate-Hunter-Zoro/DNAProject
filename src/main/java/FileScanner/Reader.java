@@ -35,7 +35,7 @@ public class Reader {
     private String databaseFile;
 
     // what regular expression are we using to look through a file for DNA sequences?
-    public static final String DNA_REGEX = "(([atgcATGC]+[\\n]?){2,})";
+    public static final String DNA_REGEX = "(?<![^atgcATGC\\n])(([atgcATGC]+[\\n]?){2,})(?![^atgcATGC\\n])";
     public static final String LINE_OF_DNA_REGEX = "[atgcATGC]+(?=\\n)";
 
     // what regular expression are we using to look through a file for DNA descriptions?
@@ -131,7 +131,7 @@ public class Reader {
     }
 
     /**
-     * One a block of DNA is found within a file (including the new lines), break it up and combine line by line to form one long string of only A, T, G, or C
+     * Once a block of DNA is found within a file (including the new lines), break it up and combine line by line to form one long string of only A, T, G, or C
      * @param DNABlock {@link String}
      * @return DNASequence {@link String}
      */

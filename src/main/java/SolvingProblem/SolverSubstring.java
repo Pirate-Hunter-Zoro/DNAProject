@@ -18,11 +18,15 @@ public class SolverSubstring implements SubsequenceFinder{
         // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
         int[][] backTracker = this.solve(s1, s2);
 
-        // this algorithm cannot use the traditional traceback
-        Pair substringStart = this.obtainStart(backTracker);
+        if (backTracker.length > 1) {
+            // this algorithm cannot use the traditional traceback
+            Pair substringStart = this.obtainStart(backTracker);
+            // now construct the alignment
+            return this.constructAlignment(substringStart, s1, s2);
+        }
 
-        // now construct the alignment
-        return this.constructAlignment(substringStart, s1, s2);
+        // otherwise, the query was the empty string
+        return new ArrayList<>();
     }
 
     /**
