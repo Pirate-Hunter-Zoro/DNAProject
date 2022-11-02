@@ -174,28 +174,28 @@ public class UIMain extends Application{
                 lblResult.setText("!PLEASE SELECT VALID INPUT FILES!");
             }
             else if (AnalyzeMethodBox.getValue() == "Longest Common Substring"){
-                Reader reader = new Reader(new SolverSubstring(),  queryFile.getPath(), databaseFile.getPath());
+                Reader reader = new Reader(new SolverSubstring(),  queryFile, databaseFile);
                 lblResult.setText("Best Match: " +  reader.findBestMatch());
                 lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
             }
             else if (AnalyzeMethodBox.getValue() == "Longest Common Subsequence"){
-                Reader reader = new Reader(new SolverLCS(),  queryFile.getPath(), databaseFile.getPath());
+                Reader reader = new Reader(new SolverLCS(),  queryFile, databaseFile);
                 lblResult.setText("Best Match: " +  reader.findBestMatch());
                 lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
             }
             else if (AnalyzeMethodBox.getValue() == "Needle-Wunsch Algorithm"){
-                Reader reader = new Reader(new SolverNeedlemanWunsch(),  queryFile.getPath(), databaseFile.getPath());
+                Reader reader = new Reader(new SolverNeedlemanWunsch(),  queryFile, databaseFile);
                 lblResult.setText("Best Match: " +  reader.findBestMatch());
                 lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
             }
             else if (AnalyzeMethodBox.getValue() == "ALL METHODS"){
-                Reader reader = new Reader(new SolverSubstring(),  queryFile.getPath(), databaseFile.getPath());
+                Reader reader = new Reader(new SolverSubstring(),  queryFile, databaseFile);
                 lblResult.setText("Longest Common Substring Best Match:\n" +  reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
 
-                reader = new Reader(new SolverLCS(),  queryFile.getPath(), databaseFile.getPath());
+                reader = new Reader(new SolverLCS(),  queryFile, databaseFile);
                 lblResultNum.setText("Longest Common Subsequence Best Match:\n" + reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
 
-                reader = new Reader(new SolverNeedlemanWunsch(),  queryFile.getPath(), databaseFile.getPath());
+                reader = new Reader(new SolverNeedlemanWunsch(),  queryFile, databaseFile);
                 lblResultExtra.setText("Needle-Wunsch Algorithm Best Match:\n" + reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
             }
         });

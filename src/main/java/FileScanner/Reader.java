@@ -20,6 +20,7 @@ package FileScanner;
 import SolvingProblem.Pair;
 import SolvingProblem.SubsequenceFinder;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,10 +56,10 @@ public class Reader {
      * Constructor for the Reader - it will need to call some helper methods
      * @param solver
      */
-    public Reader(SubsequenceFinder solver, String queryFile, String databaseFile){
+    public Reader(SubsequenceFinder solver, File queryFile, File databaseFile){
         this.solver = solver;
-        this.queryFile = queryFile;
-        this.databaseFile = databaseFile;
+        this.queryFile = queryFile.getPath();
+        this.databaseFile = databaseFile.getPath();
         this.query = readForQuery();
         this.descriptionToDNAMap = readInSequences();
         this.countOfClosestMatch = 0;
