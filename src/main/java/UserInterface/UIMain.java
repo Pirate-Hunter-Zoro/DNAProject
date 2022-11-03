@@ -20,6 +20,7 @@
 
 package UserInterface;
 
+import FileScanner.StringConverterCounter;
 import SolvingProblem.SolverLCS;
 import SolvingProblem.SolverNeedlemanWunsch;
 import javafx.application.Application;
@@ -136,6 +137,7 @@ public class UIMain extends Application{
         AnalyzeMethodBox.getItems().addAll("Longest Common Substring",
                 "Longest Common Subsequence",
                 "Needle-Wunsch Algorithm",
+                "Shortest Edit Distance",
                 "ALL METHODS"
         );
         AnalyzeMethodBox.setValue("Longest Common Substring"); //setting default value
@@ -201,6 +203,11 @@ public class UIMain extends Application{
                 lblResult.setText("Best Match: " +  reader.findBestMatch());
                 lblResultNum.setText("Length: " + reader.getCountOfClosestMatch());
             }
+            else if (AnalyzeMethodBox.getValue() == "Shortest Edit Distance"){
+                StringConverterCounter counter = new StringConverterCounter(queryFile, databaseFile);
+                lblResult.setText("Best Match: " +  counter.findBestMatch());
+                lblResultNum.setText("Number of Edits Required: " + counter.getNumConversionsForClosestMatch());
+            }
             else if (AnalyzeMethodBox.getValue() == "ALL METHODS"){
                 Reader reader = new Reader(new SolverSubstring(),  queryFile, databaseFile);
                 lblResult.setText("Longest Common Substring Best Match:\n" +  reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
@@ -210,6 +217,10 @@ public class UIMain extends Application{
 
                 reader = new Reader(new SolverNeedlemanWunsch(),  queryFile, databaseFile);
                 lblResultExtra.setText("Needle-Wunsch Algorithm Best Match:\n" + reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
+
+                StringConverterCounter counter = new StringConverterCounter(queryFile, databaseFile);
+                lblResultExtra.setText("Shortest Edit Distance Best Match:\n" + counter.findBestMatch() + "\n Number of Edits Required: " + counter.getNumConversionsForClosestMatch());
+
             }
         });
 
