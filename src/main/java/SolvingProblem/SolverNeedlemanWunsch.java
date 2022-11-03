@@ -1,6 +1,7 @@
 package SolvingProblem;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class SolverNeedlemanWunsch implements SubsequenceFinder {
     // source - https://www.youtube.com/watch?v=ipp-pNRIp4g
@@ -20,9 +21,10 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
     public ArrayList<Pair> getLineUp(String s1, String s2){
         // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
         int[][] backTracker = this.solve(s1, s2);
+        Stack<Pair> result = this.traceBack(backTracker, s1, s2);
 
         // call the static List of Pairs constructor
-        return SubsequenceFinder.findSubsequencePositions(backTracker);
+        return SubsequenceFinder.findSolutionPositions(result);
     }
 
     /**
@@ -35,7 +37,6 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
     public int[][] solve(String s1, String s2){
         // create empty table
         int[][] scores = new int[s1.length()+1][s2.length()+1];
-        int[][] backTracker = new int[s1.length()+1][s2.length()+1];
 
         // start with base cases
         for (int i=0; i<=s1.length(); i++){
@@ -69,18 +70,58 @@ public class SolverNeedlemanWunsch implements SubsequenceFinder {
                 // find best, record, and add to traceBack
                 int best = Math.max(candidate0, Math.max(candidate1, candidate2));
                 scores[i][j] = best;
-                if (best == candidate0)
-                    backTracker[i][j] = SubsequenceFinder.UP_LEFT;
-                else if (best == candidate1)
-                    backTracker[i][j] = SubsequenceFinder.LEFT;
-                else
-                    backTracker[i][j] = SubsequenceFinder.UP;
 
             }
         }
 
-        // return the means to backTrack to get the original solution
-        return backTracker;
+        // for this algorithm, the scores array can be used for the backtracking
+        return scores;
     }
 
+    /**
+     * Reconstruct the solution given the backtracking table
+     * @param backTracker
+     * @param s1
+     * @param s2
+     * @return {@link Stack<Pair>}
+     */
+    @Override
+    public Stack<Pair> traceBack(int[][] backTracker, String s1, String s2) {
+        int row = s1.length();
+        int column = s2.length();
+
+        Stack<Pair> result = new Stack<>();
+
+        // move back along the table
+        while (row > 0 && column > 0){
+            if (s1.charAt(row-1)==s2.charAt(column-1)){ // it's a match - auto-include
+                row--;
+                column--;
+                result.push(new Pair(row, column));
+
+            } else { // look for the maximum neighbor
+                int neighbor1 = backTracker[row-1][column-1];
+                int neighbor2 = backTracker[row-1][column];
+                int neighbor3 = backTracker[row][column-1];
+                if (neighbor1 >= neighbor2){
+                    if (neighbor1 >= neighbor3){ // top left
+                        row--;
+                        column--;
+                        result.push(new Pair(row, column));
+                    } else { // left
+                        column--;
+                    }
+                } else {
+                    if (neighbor3 >= neighbor2){ // left
+                        column--;
+                    } else { // top
+                        row--;
+                    }
+                }
+            }
+        }
+
+        return result;
+
+    }
 }

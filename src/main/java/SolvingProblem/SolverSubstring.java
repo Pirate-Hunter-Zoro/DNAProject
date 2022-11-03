@@ -18,11 +18,11 @@ public class SolverSubstring implements SubsequenceFinder{
         // fill out a 2D array containing all the backtracking necessary to reconstruct the longest common subsequence of the two strings
         int[][] backTracker = this.solve(s1, s2);
 
-        if (backTracker.length > 1) {
+        if (backTracker.length > 1 && backTracker[0].length > 1) {
             // this algorithm cannot use the traditional traceback
-            Pair substringStart = this.obtainStart(backTracker);
+            Stack<Pair> traceBackResult = this.traceBack(backTracker, s1, s2);
             // now construct the alignment
-            return this.constructAlignment(substringStart, s1, s2);
+            return this.constructAlignment(traceBackResult, s1, s2);
         }
 
         // otherwise, the query was the empty string
@@ -73,9 +73,9 @@ public class SolverSubstring implements SubsequenceFinder{
      * Given a backtracking table, obtain the indices that correspond to the start of the longest common substring between the two strings
      * There should be no need for an outside class to call this method
      * @param backTracker {int[][]}
-     * @return {@link Pair}
+     * @return {@link Stack<Pair>}
      */
-    private Pair obtainStart(int[][] backTracker){
+    public Stack<Pair> traceBack(int[][] backTracker, String s1, String s2){
 
         // we know this is true because of the solve method
         int maxSubstringLength = backTracker[0][0];
@@ -96,20 +96,21 @@ public class SolverSubstring implements SubsequenceFinder{
             }
         }
 
-        return pairStack.pop();
+        return pairStack;
 
     }
 
     /**
      * Given the two strings and the starting point in each string of the common substring, construct the alignment
-     * @param substringStart
+     * @param traceBackResult
      * @param s1
      * @param s2
      * @return {@link ArrayList<Pair>}
      */
-    private ArrayList<Pair> constructAlignment(Pair substringStart, String s1, String s2){
+    private ArrayList<Pair> constructAlignment(Stack<Pair> traceBackResult, String s1, String s2){
         // now that we have the starting point in each string of the longest common substring, we need to figure out how to line up the strings
-        int offset = substringStart.getFirst() - substringStart.getSecond();
+        Pair start = traceBackResult.pop();
+        int offset = start.getFirst() - start.getSecond();
         int s1Start = -1;
         int s2Start = -1;
         if (offset > 0){

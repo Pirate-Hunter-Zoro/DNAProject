@@ -55,7 +55,7 @@ class ReaderTest {
 
     /**
      * A simple test to ensure that the description->DNASequence map was constructed correctly
-     * Testing the first and last is good enough...
+     * Testing the first and and a middle and last is good enough...
      */
     @Test
     void testMap(){

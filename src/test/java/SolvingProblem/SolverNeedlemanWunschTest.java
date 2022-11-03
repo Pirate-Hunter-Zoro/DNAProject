@@ -24,14 +24,13 @@ class SolverNeedlemanWunschTest {
     SolverNeedlemanWunsch solver;
 
     /** To enable easy emplacement into the expected list of Pairs */
-    static int[] s1Indices = {0,1,2,4,5};
-    static int[] s2Indices = {0,1,3,4,5};
+    static int[] s1Indices = {0,1,2,3,4,5};
+    static int[] s2Indices = {0,1,2,3,4,5};
 
-    static int[] s3Indices = {0,1,3,4,5,6};
+    static int[] s3Indices = {0,1,2,4,5,6};
     static int[] s4Indices = {0,1,2,3,4,5};
 
-    static int[] s5Indices = {0,1,2,4,5,6};
-    static int[] s5IndicesSecondPossibility = {0,1,3,4,5,6}; // same gap either way
+    static int[] s5Indices = {0,1,2,3,5,6};
     static int[] s6Indices = {0,1,2,3,4,5};
 
     /** Lists of Pairs containing the indices to use for each String to create the longest common subsequence */
@@ -42,9 +41,7 @@ class SolverNeedlemanWunschTest {
     static ArrayList<Pair> expectedReverse2 = new ArrayList<>();
 
     static ArrayList<Pair> expected3 = new ArrayList<>();
-    static ArrayList<Pair> expected3SecondPossibility = new ArrayList<>();
     static ArrayList<Pair> expectedReverse3 = new ArrayList<>();
-    static ArrayList<Pair> expectedReverse3SecondPossibility = new ArrayList<>();
 
 
     /** Pre-test String setup */
@@ -61,8 +58,6 @@ class SolverNeedlemanWunschTest {
         for (int k=0; k< s5Indices.length; k++){
             expected3.add(new Pair(s5Indices[k], s6Indices[k]));
             expectedReverse3.add(new Pair(s6Indices[k], s5Indices[k]));
-            expected3SecondPossibility.add(new Pair(s5IndicesSecondPossibility[k], s6Indices[k]));
-            expectedReverse3SecondPossibility.add(new Pair(s6Indices[k], s5IndicesSecondPossibility[k]));
         }
         solver = new SolverNeedlemanWunsch();
     }
@@ -87,10 +82,10 @@ class SolverNeedlemanWunschTest {
         ///////////////////////////////////////////////////////////////////////////////////////
 
         ArrayList<Pair> actual3 = solver.getLineUp(s5,s6);
-        assertTrue(expected3.equals(actual3) || expected3SecondPossibility.equals(actual3));
+        assertEquals(expected3, actual3);
 
         ArrayList<Pair> actualReverse3 = solver.getLineUp(s6,s5);
-        assertTrue(expectedReverse3.equals(actualReverse3) || expectedReverse3SecondPossibility.equals(actualReverse3));
+        assertEquals(expectedReverse3, actualReverse3);
 
         ///////////////////////////////////////////////////////////////////////////////////////
 
