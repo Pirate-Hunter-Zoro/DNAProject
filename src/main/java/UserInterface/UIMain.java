@@ -52,6 +52,7 @@ public class UIMain extends Application{
     private Label lblResult;
     private Label lblResultNum;
     private Label lblResultExtra;
+    private Label lblResultExtra2;
 
 
     private String bestMatch;
@@ -119,7 +120,7 @@ public class UIMain extends Application{
         lblResult = new Label();
         lblResultNum = new Label();
         lblResultExtra = new Label();
-
+        lblResultExtra2 = new Label();
 
         lblResult = new Label();
 
@@ -173,6 +174,7 @@ public class UIMain extends Application{
         OutputNode.getChildren().add(lblResult);
         OutputNode.getChildren().add(lblResultNum);
         OutputNode.getChildren().add(lblResultExtra);
+        OutputNode.getChildren().add(lblResultExtra2);
 
         //add elements to root
         root.getChildren().add(DropDownBoxNode);
@@ -219,7 +221,7 @@ public class UIMain extends Application{
                 lblResultExtra.setText("Needle-Wunsch Algorithm Best Match:\n" + reader.findBestMatch() + "\n Length: " + reader.getCountOfClosestMatch());
 
                 StringConverterCounter counter = new StringConverterCounter(queryFile, databaseFile);
-                lblResultExtra.setText("Shortest Edit Distance Best Match:\n" + counter.findBestMatch() + "\n Number of Edits Required: " + counter.getNumConversionsForClosestMatch());
+                lblResultExtra2.setText("Shortest Edit Distance Best Match:\n" + counter.findBestMatch() + "\n Number of Edits Required: " + counter.getNumConversionsForClosestMatch());
 
             }
         });
