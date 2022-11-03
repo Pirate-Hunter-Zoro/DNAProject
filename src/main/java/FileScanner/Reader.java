@@ -48,7 +48,7 @@ public class Reader {
     // after construction, the string to sweep through and look for close matches is set and done
     private final String query;
 
-    private HashMap<String,String> descriptionToDNAMap;
+    public final HashMap<String,String> descriptionToDNAMap;
 
     private int countOfClosestMatch;
 
