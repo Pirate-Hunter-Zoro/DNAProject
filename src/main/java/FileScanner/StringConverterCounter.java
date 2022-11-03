@@ -83,7 +83,8 @@ public class StringConverterCounter {
     }
 
     /**
-     * Implement dynamic programming to find the minimum number of add/remove/replace opeartioins it takes to convert one string into another
+     * Implement dynamic programming to find the minimum number of add/remove/replace operations it takes to convert one string into another
+     * Source for understanding of the problem solution: https://www.youtube.com/watch?v=We3YDTzNXEk&t=206s
      * @param word1
      * @param word2
      * @return int
@@ -101,9 +102,9 @@ public class StringConverterCounter {
 
         for (int i=1; i<=word1.length(); i++){
             for (int j=1; j<=word2.length(); j++){
-                int candidate1 = counts[i-1][j-1]; // ???
-                int candidate2 = counts[i-1][j]; // delete from s2
-                int candidate3 = counts[i][j-1]; // delete from s1
+                int candidate1 = counts[i-1][j-1]; // consider sub problem a character earlier in both strings
+                int candidate2 = counts[i-1][j]; // delete from s1
+                int candidate3 = counts[i][j-1]; // delete from s2
                 int best = Math.min(candidate1, Math.min(candidate2, candidate3));
 
                 if (word1.charAt(i-1)==word2.charAt(j-1) && best == candidate1){
